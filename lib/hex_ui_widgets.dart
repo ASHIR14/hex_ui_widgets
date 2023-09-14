@@ -7,4 +7,5 @@ export 'src/widgets/hex_button_small.dart';
 export 'src/widgets/hex_icon_button.dart';
 export 'src/widgets/hex_swipe_button.dart';
 export 'src/widgets/hex_text_field.dart';
+export 'src/widgets/loader_icon.dart';
 export 'src/widgets/toast/toast.dart';

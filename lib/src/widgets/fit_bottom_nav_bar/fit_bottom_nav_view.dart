@@ -16,6 +16,7 @@ class FitBottomNavView extends StatefulWidget {
       this.iconSize,
       this.hideCenterOutline = false,
       this.backgroundColor,
+      this.iconsVerticalPosition,
       super.key});
 
   /// The screens to be displayed when a tab is selected.
@@ -52,6 +53,9 @@ class FitBottomNavView extends StatefulWidget {
 
   /// The background color of the screens.
   final Color? backgroundColor;
+
+  /// The vertical position of the icons.
+  final double? iconsVerticalPosition;
 
   @override
   State<FitBottomNavView> createState() => _FitBottomNavViewState();
@@ -111,6 +115,7 @@ class _FitBottomNavViewState extends State<FitBottomNavView> {
         unselectedIconColor: widget.unselectedIconColor,
         iconSize: widget.iconSize,
         hideCenterOutline: widget.hideCenterOutline,
+        iconsVerticalPosition: widget.iconsVerticalPosition,
       ),
       body: SafeArea(
         child: widget.screens[selectedTab],

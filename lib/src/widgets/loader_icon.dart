@@ -37,6 +37,7 @@ class _LoaderIconState extends State<LoaderIcon> {
   int activeIndex = 0;
   Color primaryColor = AppColors.neutralL900;
   Color secondaryColor = AppColors.neutralL800;
+  late Timer timer;
 
   @override
   void initState() {
@@ -50,11 +51,18 @@ class _LoaderIconState extends State<LoaderIcon> {
     }
     // Create a periodic timer to update the active cube's index
     Duration interval = Duration(milliseconds: widget.animationDuration);
-    Timer.periodic(interval, (timer) {
+    timer = Timer.periodic(interval, (timer) {
+      if (!mounted) return;
       setState(() {
         activeIndex = (activeIndex + 1) % 4;
       });
     });
+  }
+
+  @override
+  void dispose() {
+    timer.cancel();
+    super.dispose();
   }
 
   @override

@@ -13,6 +13,7 @@ class FitBottomNavBar extends StatefulWidget {
       this.unselectedIconColor,
       this.iconSize,
       this.hideCenterOutline = false,
+      this.iconsVerticalPosition,
       super.key});
 
   final int selectedTab;
@@ -24,6 +25,7 @@ class FitBottomNavBar extends StatefulWidget {
   final Color? unselectedIconColor;
   final double? iconSize;
   final bool hideCenterOutline;
+  final double? iconsVerticalPosition;
 
   @override
   State<FitBottomNavBar> createState() => _FitBottomNavBarState();
@@ -44,7 +46,7 @@ class _FitBottomNavBarState extends State<FitBottomNavBar> {
             hideCenterOutline: widget.hideCenterOutline,
           ),
           Positioned(
-            top: 42,
+            top: widget.iconsVerticalPosition ?? 50,
             right: 0,
             left: 0,
             child: Row(

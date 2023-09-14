@@ -1,0 +1,24 @@
+name: hex_ui_widgets
+description: A set of customisable widgets to make your app look good.
+version: 0.1.0
+
+environment:
+  sdk: '>=3.1.0 <4.0.0'
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_svg: ^2.0.7
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+flutter:
+  uses-material-design: true
+
+platforms:
+  android:
+  ios:

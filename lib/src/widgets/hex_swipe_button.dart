@@ -25,6 +25,12 @@ class HexSwipeButton extends StatefulWidget {
   /// The color of the thumb icon
   final Color? thumbColor;
 
+  /// The text to be displayed on the button
+  final String? text;
+
+  /// The style of the text to be displayed on the button
+  final TextStyle? textStyle;
+
   const HexSwipeButton({
     super.key,
     required this.onSwipeComplete,
@@ -34,6 +40,8 @@ class HexSwipeButton extends StatefulWidget {
     this.outlineWidth,
     this.gradientColor,
     this.thumbColor,
+    this.text,
+    this.textStyle,
   });
 
   @override
@@ -111,6 +119,20 @@ class _HexSwipeButtonState extends State<HexSwipeButton> {
               </defs>
             </svg>
           ''',
+          ),
+          Visibility(
+            visible: widget.text != null,
+            child: Positioned(
+              top: 0,
+              bottom: 0,
+              right: 0,
+              left: 0,
+              child: Center(
+                  child: Text(
+                widget.text ?? "",
+                style: widget.textStyle,
+              )),
+            ),
           ),
           AnimatedPositioned(
             left: _positionX,

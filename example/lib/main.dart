@@ -31,7 +31,9 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  static Color backgroundColor = const Color(0xff151c2b);
+  Color backgroundColor = const Color(0xff151c2b);
+  Color primaryColor = const Color(0xff4fbf48);
+  Color neutralD300 = const Color(0xff222d45);
   bool isLoading = false;
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -47,7 +49,7 @@ class _MainScreenState extends State<MainScreen> {
   }
 
   String? errorValidator(String? value) {
-    if (value == null || value.isEmpty || value.length < 3) {
+    if (value == null || value.isEmpty || value.length < 5) {
       return 'Please enter some text';
     } else {
       return null;
@@ -57,8 +59,8 @@ class _MainScreenState extends State<MainScreen> {
   String? warningValidator(String? value) {
     if (value != null &&
         value.isNotEmpty &&
-        value.length >= 3 &&
-        value.length < 6) {
+        value.length >= 5 &&
+        value.length < 10) {
       return 'Please enter some more text';
     } else {
       return null;
@@ -66,7 +68,7 @@ class _MainScreenState extends State<MainScreen> {
   }
 
   String? successValidator(String? value) {
-    if (value != null && value.length >= 6) {
+    if (value != null && value.length >= 10) {
       return 'Good to go';
     } else {
       return null;
@@ -100,130 +102,270 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return FitBottomNavView(
-      initialTab: 2,
-      height: 85,
-      backgroundColor: backgroundColor,
-      icons: const [
-        Icons.radio_button_checked,
-        Icons.text_fields,
-        Icons.person,
-        Icons.border_bottom,
-        Icons.logout,
-      ],
-      screens: [
-        Scaffold(
-          backgroundColor: backgroundColor,
-          body: SafeArea(
-            child: SizedBox(
-              width: double.infinity,
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 60),
+      child: FitBottomNavView(
+        initialTab: 2,
+        height: 100,
+        backgroundColor: backgroundColor,
+        icons: const [
+          Icons.notifications,
+          Icons.shopping_cart,
+          Icons.home,
+          Icons.favorite,
+          Icons.person,
+        ],
+        screens: [
+          Scaffold(
+            backgroundColor: backgroundColor,
+            body: SafeArea(
+              child: SizedBox(
+                width: double.infinity,
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    HexTextField(
+                      errorValidator: errorValidator,
+                      warningValidator: warningValidator,
+                      successValidator: successValidator,
+                      leadingWidget: const Icon(
+                        Icons.email,
+                        color: Colors.grey,
+                      ),
+                      hintText: "type something",
+                    ),
+                    HexSwipeButton(
+                      onSwipeComplete: () {
+                        log('Swipe completed');
+                      },
+                      minCompletionPercentage: 0.5,
+                      text: "Swipe Me",
+                      textStyle: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 14,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Scaffold(
+            backgroundColor: backgroundColor,
+            body: Center(
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  HexButton(
-                    text: "Hello",
-                    isLoading: isLoading,
-                    onPress: _toggleLoading,
-                  ),
-                  HexButtonSmall(
-                    text: "Hello",
-                    isLoading: isLoading,
-                    onPress: _toggleLoading,
-                  ),
-                  HexIconButton(
-                    icon: const Icon(
-                      Icons.heart_broken,
+                  HexListTileSmall(
+                    title: "Title",
+                    subTitle: "Sub Title",
+                    leading: const Icon(
+                      Icons.star,
                       color: Colors.white,
                     ),
-                    isLoading: isLoading,
-                    onPress: _toggleLoading,
+                    leadingBackgroundColor: primaryColor,
+                    backgroundColor: primaryColor,
+                    backgroundColorOpacity: 0.2,
                   ),
-                  HexSwipeButton(
-                    onSwipeComplete: () {
-                      log('Swipe completed');
-                    },
-                    minCompletionPercentage: 0.5,
-                    returnToStart: true,
-                  ),
-                  // const LoaderIcon(animationDuration: 300),
-                ],
-              ),
-            ),
-          ),
-        ),
-        Scaffold(
-          backgroundColor: backgroundColor,
-          body: SafeArea(
-            child: SizedBox(
-              width: double.infinity,
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  HexTextField(
-                    errorValidator: errorValidator,
-                    warningValidator: warningValidator,
-                    successValidator: successValidator,
-                    leadingWidget: const Icon(
-                      Icons.email,
-                      color: Colors.grey,
+                  HexListTileSmall(
+                    title: "Title",
+                    subTitle: "Sub Title",
+                    trailing: const Icon(
+                      Icons.star,
+                      color: Colors.white,
                     ),
-                    hintText: "type something",
+                    trailingBackgroundColor: primaryColor,
+                    backgroundColor: primaryColor,
+                    backgroundColorOpacity: 0.2,
+                  ),
+                  HexListTileSmall(
+                    title: "Title",
+                    subTitle: "Sub Title",
+                    leading: Icon(
+                      Icons.star,
+                      color: primaryColor,
+                    ),
+                    leadingBackgroundColor: primaryColor,
+                    leadingBackgroundColorOpacity: 0.2,
+                    outlineGradientPrimaryColor: primaryColor,
+                  ),
+                  HexListTileSmall(
+                    title: "Title",
+                    subTitle: "Sub Title",
+                    leading: Icon(
+                      Icons.star,
+                      color: primaryColor,
+                    ),
+                    leadingBackgroundColor: neutralD300,
+                    outlineColor: neutralD300,
+                  ),
+                  HexListTileSmall(
+                    title: "Title",
+                    leading: Icon(
+                      Icons.star,
+                      color: primaryColor,
+                    ),
+                    backgroundColor: primaryColor,
+                    backgroundColorOpacity: 0.2,
                   ),
                 ],
               ),
             ),
           ),
-        ),
-        const SizedBox(
-          height: 20,
-          width: 20,
-        ),
-        Scaffold(
-          backgroundColor: backgroundColor,
-          key: scaffoldKey,
-          body: SafeArea(
-            child: SizedBox(
+          Scaffold(
+            backgroundColor: backgroundColor,
+            body: SafeArea(
+              child: SizedBox(
+                width: double.infinity,
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    HexButton(
+                      text: "Press Me",
+                      isLoading: isLoading,
+                      onPress: _toggleLoading,
+                    ),
+                    HexButton(
+                      text: "Press Me",
+                      isLoading: isLoading,
+                      onPress: _toggleLoading,
+                      color: backgroundColor,
+                    ),
+                    HexButtonSmall(
+                      text: "Press Me",
+                      isLoading: isLoading,
+                      onPress: _toggleLoading,
+                    ),
+                    HexButtonSmall(
+                      text: "Press Me",
+                      isLoading: isLoading,
+                      color: backgroundColor,
+                      onPress: _toggleLoading,
+                    ),
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        HexIconButton(
+                          icon: const Icon(
+                            Icons.favorite,
+                            color: Colors.white,
+                          ),
+                          isLoading: isLoading,
+                          onPress: _toggleLoading,
+                        ),
+                        HexIconButton(
+                          icon: const Icon(
+                            Icons.favorite,
+                            color: Colors.green,
+                          ),
+                          isLoading: isLoading,
+                          color: backgroundColor,
+                          onPress: _toggleLoading,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Scaffold(
+            backgroundColor: backgroundColor,
+            key: scaffoldKey,
+            body: SafeArea(
+              child: SizedBox(
+                width: double.infinity,
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        HexButtonSmall(
+                          text: "Success Toast",
+                          onPress: () {
+                            showToast(ToastType.success);
+                          },
+                          color: backgroundColor,
+                        ),
+                        HexButtonSmall(
+                          text: "Warning Toast",
+                          onPress: () {
+                            showToast(ToastType.warning);
+                          },
+                          color: backgroundColor,
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        HexButtonSmall(
+                          text: "Error Toast",
+                          onPress: () {
+                            showToast(ToastType.error);
+                          },
+                          color: backgroundColor,
+                        ),
+                        HexButtonSmall(
+                          text: "Info Toast",
+                          onPress: () {
+                            showToast(ToastType.info);
+                          },
+                          color: backgroundColor,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Scaffold(
+            backgroundColor: backgroundColor,
+            body: const SizedBox(
               width: double.infinity,
               child: Column(
                 mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  HexButton(
-                    text: "Success Toast",
-                    onPress: () {
-                      showToast(ToastType.success);
-                    },
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      LoaderIcon(),
+                      SizedBox(width: 30),
+                      LoaderIcon(
+                        primaryColor: Colors.green,
+                        secondaryColor: Colors.greenAccent,
+                      ),
+                    ],
                   ),
-                  HexButton(
-                    text: "Warning Toast",
-                    onPress: () {
-                      showToast(ToastType.warning);
-                    },
-                  ),
-                  HexButton(
-                    text: "Error Toast",
-                    onPress: () {
-                      showToast(ToastType.error);
-                    },
-                  ),
-                  HexButton(
-                    text: "Info Toast",
-                    onPress: () {
-                      showToast(ToastType.info);
-                    },
+                  SizedBox(height: 30),
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      LoaderIcon(
+                        animationDuration: 300,
+                      ),
+                      SizedBox(width: 30),
+                      LoaderIcon(radius: 5),
+                    ],
                   ),
                 ],
               ),
             ),
           ),
-        ),
-        const SizedBox(
-          height: 20,
-          width: 20,
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

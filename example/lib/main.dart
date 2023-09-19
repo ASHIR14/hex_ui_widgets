@@ -210,6 +210,9 @@ class _MainScreenState extends State<MainScreen> {
                     backgroundColor: primaryColor,
                     backgroundColorOpacity: 0.2,
                   ),
+                  HexListTileLarge(
+                    outlineGradientPrimaryColor: primaryColor,
+                  ),
                 ],
               ),
             ),

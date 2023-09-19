@@ -6,6 +6,7 @@ class HexListTileSmall extends StatelessWidget {
   const HexListTileSmall({
     this.leading,
     this.trailing,
+    this.child,
     this.title,
     this.subTitle,
     this.titleStyle,
@@ -20,25 +21,88 @@ class HexListTileSmall extends StatelessWidget {
     this.leadingBackgroundColorOpacity,
     this.trailingBackgroundColor,
     this.trailingBackgroundColorOpacity,
+    this.onTap,
+    this.disableShadow = true,
+    this.shadowColor,
+    this.shadowOpacity,
+    this.shadowBlurRadius,
+    this.shadowSpreadRadius,
     super.key,
   });
 
+  /// The leading widget of the List Tile.
+  /// If [child] is not null, this will be ignored.
   final Widget? leading;
+
+  /// The trailing widget of the List Tile.
+  /// If [child] is not null, this will be ignored.
   final Widget? trailing;
+
+  /// The child widget of the List Tile.
+  /// If this is not null, [leading] and [trailing] will be ignored.
+  final Widget? child;
+
+  /// The title of the List Tile.
   final String? title;
+
+  /// The subtitle of the List Tile.
   final String? subTitle;
+
+  /// The style of the title.
   final TextStyle? titleStyle;
+
+  /// The style of the subtitle.
   final TextStyle? subTitleStyle;
+
+  /// The background color of the List Tile.
   final Color? backgroundColor;
+
+  /// The opacity of the background color.
   final double? backgroundColorOpacity;
+
+  /// The width of the outline.
   final double? outlineWidth;
+
+  /// The color of the outline.
   final Color? outlineColor;
+
+  /// The primary color of the outline gradient.
+  /// If [outlineColor] is not null, this will be ignored.
   final Color? outlineGradientPrimaryColor;
+
+  /// The secondary color of the outline gradient.
+  /// If [outlineColor] is not null, this will be ignored.
   final Color? outlineGradientSecondaryColor;
+
+  /// The background color of the leading icon.
   final Color? leadingBackgroundColor;
+
+  /// The opacity of the leading background color.
   final double? leadingBackgroundColorOpacity;
+
+  /// The background color of the trailing icon.
   final Color? trailingBackgroundColor;
+
+  /// The opacity of the trailing background color.
   final double? trailingBackgroundColorOpacity;
+
+  /// The function to be called when the button is pressed.
+  final VoidCallback? onTap;
+
+  /// Whether the button has shadow or not.
+  final bool disableShadow;
+
+  /// The color of the shadow.
+  final Color? shadowColor;
+
+  /// The opacity of the shadow.
+  final double? shadowOpacity;
+
+  /// The blur radius of the shadow.
+  final double? shadowBlurRadius;
+
+  /// The spread radius of the shadow.
+  final double? shadowSpreadRadius;
 
   double getContainerWidth() {
     if (leading == null && trailing == null) {
@@ -53,45 +117,60 @@ class HexListTileSmall extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: onTap,
       child: Stack(
         children: [
-          SvgPicture.string(
-            '''
-            <svg
-              width="337" 
-              height="70"
-              viewBox="0 0 337 70"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg">
-              <path
-                stroke="${outlineColor != null ? outlineColor!.toHex() : (outlineGradientPrimaryColor != null || outlineGradientSecondaryColor != null) ? 'url(#paint0_linear_2210_9061)' : 'none'}"
-                stroke-width="${outlineWidth ?? '1.5'}"
-                fill="${backgroundColor != null ? backgroundColor!.toHex() : 'none'}"
-                fill-opacity="${backgroundColorOpacity ?? '1'}"
-                d="M16.1952 6.93134L3.23045 28.587C0.931827 32.4265 0.920563 37.2165 3.2011 41.0668L16.2038 63.0194C18.3995 66.7266 22.3884 69 26.6971 69L310.612 69C314.956 69 318.972 66.6892 321.155 62.9336L333.918 40.9805C336.131 37.1735 336.12 32.4691 333.889 28.6725L321.164 7.01731C318.974 3.2894 314.973 1 310.649 1L26.6592 1.00001C22.371 1.00001 18.3979 3.2521 16.1952 6.93134Z"/>
-              <path
-                fill="${leadingBackgroundColor != null ? leadingBackgroundColor!.toHex() : 'none'}"
-                fill-opacity="${leadingBackgroundColorOpacity ?? '1'}"
-                d="M58.1636 55.0637L66.3384 41.3033C68.5973 37.5009 68.6084 32.7707 66.3674 28.9578L58.1549 14.9853C55.9754 11.2771 51.9956 9 47.6944 9L30.6333 9C26.2969 9 22.2901 11.3143 20.1232 15.0705L12.0624 29.0434C9.88775 32.8131 9.89854 37.4588 12.0907 41.2183L20.1139 54.9783C22.2881 58.707 26.2795 61 30.5958 61L47.732 61C52.013 61 55.9771 58.7441 58.1636 55.0637Z"/>
-              <path
-                fill="${trailingBackgroundColor != null ? trailingBackgroundColor!.toHex() : 'none'}"
-                fill-opacity="${trailingBackgroundColorOpacity ?? '1'}"
-                d="M316.8364 55.0637L324.0112 41.3033C326.2701 37.5009 326.2812 32.7707 324.0402 28.9578L315.8277 14.9853C313.6482 11.2771 309.6684 9 305.3672 9L288.3061 9C283.9697 9 279.9629 11.3143 277.796 15.0705L269.7352 29.0434C267.5606 32.8131 267.5714 37.4588 269.7635 41.2183L277.7867 54.9783C279.9609 58.707 283.9523 61 288.2686 61L305.4048 61C309.6858 61 313.6499 58.7441 316.8364 55.0637Z"/>
-              <defs>
-                <linearGradient
-                  id="paint0_linear_2210_9061"
-                  x1="-2.25522"
-                  y1="35.2602"
-                  x2="324.49"
-                  y2="35.2602"
-                  gradientUnits="userSpaceOnUse">
-                  <stop offset="0" stop-color="${outlineGradientPrimaryColor != null ? outlineGradientPrimaryColor!.toHex() : AppColors.primary500.toHex()}"/>
-                  <stop offset="1" stop-color="${outlineGradientSecondaryColor != null ? outlineGradientSecondaryColor!.toHex() : AppColors.neutralD100.toHex()}"/>
-                </linearGradient>
-              </defs>
-            </svg>
-            ''',
+          Container(
+            decoration: disableShadow
+                ? null
+                : BoxDecoration(
+                    borderRadius: BorderRadius.circular(70),
+                    boxShadow: [
+                      BoxShadow(
+                        color: (shadowColor ?? AppColors.primary500)
+                            .withOpacity(shadowOpacity ?? 0.15),
+                        spreadRadius: shadowSpreadRadius ?? 3,
+                        blurRadius: shadowBlurRadius ?? 3,
+                      ),
+                    ],
+                  ),
+            child: SvgPicture.string(
+              '''
+              <svg
+                width="337" 
+                height="70"
+                viewBox="0 0 337 70"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <path
+                  stroke="${outlineColor != null ? outlineColor!.toHex() : (outlineGradientPrimaryColor != null || outlineGradientSecondaryColor != null) ? 'url(#paint0_linear_2210_9061)' : 'none'}"
+                  stroke-width="${outlineWidth ?? '1.5'}"
+                  fill="${backgroundColor != null ? backgroundColor!.toHex() : 'none'}"
+                  fill-opacity="${backgroundColorOpacity ?? '1'}"
+                  d="M16.1952 6.93134L3.23045 28.587C0.931827 32.4265 0.920563 37.2165 3.2011 41.0668L16.2038 63.0194C18.3995 66.7266 22.3884 69 26.6971 69L310.612 69C314.956 69 318.972 66.6892 321.155 62.9336L333.918 40.9805C336.131 37.1735 336.12 32.4691 333.889 28.6725L321.164 7.01731C318.974 3.2894 314.973 1 310.649 1L26.6592 1.00001C22.371 1.00001 18.3979 3.2521 16.1952 6.93134Z"/>
+                <path
+                  fill="${leadingBackgroundColor != null ? leadingBackgroundColor!.toHex() : 'none'}"
+                  fill-opacity="${leadingBackgroundColorOpacity ?? '1'}"
+                  d="M58.1636 55.0637L66.3384 41.3033C68.5973 37.5009 68.6084 32.7707 66.3674 28.9578L58.1549 14.9853C55.9754 11.2771 51.9956 9 47.6944 9L30.6333 9C26.2969 9 22.2901 11.3143 20.1232 15.0705L12.0624 29.0434C9.88775 32.8131 9.89854 37.4588 12.0907 41.2183L20.1139 54.9783C22.2881 58.707 26.2795 61 30.5958 61L47.732 61C52.013 61 55.9771 58.7441 58.1636 55.0637Z"/>
+                <path
+                  fill="${trailingBackgroundColor != null ? trailingBackgroundColor!.toHex() : 'none'}"
+                  fill-opacity="${trailingBackgroundColorOpacity ?? '1'}"
+                  d="M316.8364 55.0637L324.0112 41.3033C326.2701 37.5009 326.2812 32.7707 324.0402 28.9578L315.8277 14.9853C313.6482 11.2771 309.6684 9 305.3672 9L288.3061 9C283.9697 9 279.9629 11.3143 277.796 15.0705L269.7352 29.0434C267.5606 32.8131 267.5714 37.4588 269.7635 41.2183L277.7867 54.9783C279.9609 58.707 283.9523 61 288.2686 61L305.4048 61C309.6858 61 313.6499 58.7441 316.8364 55.0637Z"/>
+                <defs>
+                  <linearGradient
+                    id="paint0_linear_2210_9061"
+                    x1="-2.25522"
+                    y1="35.2602"
+                    x2="324.49"
+                    y2="35.2602"
+                    gradientUnits="userSpaceOnUse">
+                    <stop offset="0" stop-color="${outlineGradientPrimaryColor != null ? outlineGradientPrimaryColor!.toHex() : AppColors.primary500.toHex()}"/>
+                    <stop offset="1" stop-color="${outlineGradientSecondaryColor != null ? outlineGradientSecondaryColor!.toHex() : AppColors.neutralD100.toHex()}"/>
+                  </linearGradient>
+                </defs>
+              </svg>
+              ''',
+            ),
           ),
           Positioned(
             top: 10,
@@ -160,6 +239,19 @@ class HexListTileSmall extends StatelessWidget {
               height: 48,
               width: 48,
               child: trailing,
+            ),
+          ),
+          Positioned(
+            top: 5,
+            left: 8.5,
+            child: Container(
+              height: 60,
+              width: 320,
+              padding: const EdgeInsets.symmetric(
+                horizontal: 10,
+                vertical: 5,
+              ),
+              child: child,
             ),
           ),
         ],

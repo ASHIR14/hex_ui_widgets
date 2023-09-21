@@ -37,6 +37,8 @@ class _MainScreenState extends State<MainScreen> {
   bool isLoading = false;
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
+  ToastType? lastToast;
+
   void _toggleLoading() {
     setState(() {
       isLoading = true;
@@ -290,19 +292,35 @@ class _MainScreenState extends State<MainScreen> {
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        HexButtonSmall(
-                          text: "Success Toast",
-                          onPress: () {
+                        HexItemSelector(
+                          outlineColor: primaryColor,
+                          iconColor: primaryColor,
+                          isSelected: lastToast == ToastType.success,
+                          child: Icon(
+                            Icons.check_circle,
+                            color: primaryColor,
+                          ),
+                          onTap: () {
+                            setState(() {
+                              lastToast = ToastType.success;
+                            });
                             showToast(ToastType.success);
                           },
-                          color: backgroundColor,
                         ),
-                        HexButtonSmall(
-                          text: "Warning Toast",
-                          onPress: () {
+                        HexItemSelector(
+                          outlineColor: Colors.yellow,
+                          iconColor: Colors.yellow,
+                          isSelected: lastToast == ToastType.warning,
+                          child: const Icon(
+                            Icons.warning,
+                            color: Colors.yellow,
+                          ),
+                          onTap: () {
+                            setState(() {
+                              lastToast = ToastType.warning;
+                            });
                             showToast(ToastType.warning);
                           },
-                          color: backgroundColor,
                         ),
                       ],
                     ),
@@ -310,19 +328,35 @@ class _MainScreenState extends State<MainScreen> {
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        HexButtonSmall(
-                          text: "Error Toast",
-                          onPress: () {
+                        HexItemSelector(
+                          outlineColor: Colors.pinkAccent,
+                          iconColor: Colors.pinkAccent,
+                          isSelected: lastToast == ToastType.error,
+                          child: const Icon(
+                            Icons.cancel,
+                            color: Colors.pinkAccent,
+                          ),
+                          onTap: () {
+                            setState(() {
+                              lastToast = ToastType.error;
+                            });
                             showToast(ToastType.error);
                           },
-                          color: backgroundColor,
                         ),
-                        HexButtonSmall(
-                          text: "Info Toast",
-                          onPress: () {
+                        HexItemSelector(
+                          outlineColor: Colors.blue,
+                          iconColor: Colors.blue,
+                          isSelected: lastToast == ToastType.info,
+                          child: const Icon(
+                            Icons.info,
+                            color: Colors.blue,
+                          ),
+                          onTap: () {
+                            setState(() {
+                              lastToast = ToastType.info;
+                            });
                             showToast(ToastType.info);
                           },
-                          color: backgroundColor,
                         ),
                       ],
                     ),

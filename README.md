@@ -41,3 +41,22 @@ to `/example` folder.
 ```dart
 const like = 'sample';
 ```
+
+## Note to Self
+
+~~Button~~
+~~Small Button~~
+~~Icon Button~~
+Swipe Button -> add text
+~~Loader~~
+~~Text Field~~
+~~Bottom Nav View~~
+~~Toast~~
+Percentage Progress
+~~List Tile~~
+~~List Tile Small~~
+Popup
+Bottom Sheet
+Glowing Progress Bar
+Floating Action Button
+~~Item Selector~~
